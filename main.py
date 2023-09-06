@@ -82,7 +82,18 @@ with connection:
             ("fsaff", 1256),
         )
         result = cursor.executemany(sql, data4)
-        print(sql)
+        """ print(sql)
         print(data4)
-        print(result)
+        print(result) """
     connection.commit()
+
+    # reading values with select
+    with connection.cursor() as cursor:
+        sql = (
+            f'SELECT * FROM {TABLE_NAME} '
+        )
+        cursor.execute(sql)
+        data5 = cursor.fetchall()
+
+        for row in data5:
+            print(row)
