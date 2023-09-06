@@ -115,5 +115,18 @@ with connection:
 
         cursor.execute(f'SELECT * FROM {TABLE_NAME} ')
 
+        """ for row in cursor.fetchall():
+            print(row) """
+
+    with connection.cursor() as cursor:
+        sql = (
+            f'UPDATE {TABLE_NAME} '
+            'SET name=%s, age=%s '
+            'WHERE id=%s'
+        )
+        cursor.execute(sql, ('adsdsava', 1245661, 5))
+        cursor.execute(f'SELECT * FROM {TABLE_NAME} ')
+
         for row in cursor.fetchall():
             print(row)
+    connection.commit()
