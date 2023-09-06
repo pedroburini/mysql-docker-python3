@@ -89,10 +89,15 @@ with connection:
 
     # reading values with select
     with connection.cursor() as cursor:
+        min_id = int(input('min id: '))
+        max_id = int(input('max id: '))
+
         sql = (
             f'SELECT * FROM {TABLE_NAME} '
+            'WHERE id BETWEEN %s AND %s '
         )
-        cursor.execute(sql)
+        cursor.execute(sql, (min_id, max_id))
+        print(cursor.mogrify(sql, (min_id, max_id)))
         data5 = cursor.fetchall()
 
         for row in data5:
