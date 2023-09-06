@@ -89,16 +89,31 @@ with connection:
 
     # reading values with select
     with connection.cursor() as cursor:
-        min_id = int(input('min id: '))
-        max_id = int(input('max id: '))
+        """ min_id = int(input('min id: '))
+        max_id = int(input('max id: ')) """
+        min_id = 2
+        max_id = 4
 
         sql = (
             f'SELECT * FROM {TABLE_NAME} '
             'WHERE id BETWEEN %s AND %s '
         )
         cursor.execute(sql, (min_id, max_id))
-        print(cursor.mogrify(sql, (min_id, max_id)))
+        # print(cursor.mogrify(sql, (min_id, max_id)))
         data5 = cursor.fetchall()
 
-        for row in data5:
+        """ for row in data5:
+            print(row) """
+
+    with connection.cursor() as cursor:
+        sql = (
+            f'DELETE FROM {TABLE_NAME} '
+            'WHERE id = %s'
+        )
+        print(cursor.execute(sql, (4,)))
+        connection.commit()
+
+        cursor.execute(f'SELECT * FROM {TABLE_NAME} ')
+
+        for row in cursor.fetchall():
             print(row)
